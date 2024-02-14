@@ -3,7 +3,7 @@ module github.com/go-skynet/model-gallery
 go 1.21
 
 require (
-	github.com/go-skynet/LocalAI v1.40.1-0.20231216172245-3d83128f169d
+	github.com/go-skynet/LocalAI v1.40.1-0.20240214204412-5e155fb081bb
 	gopkg.in/yaml.v3 v3.0.1
 )
 
