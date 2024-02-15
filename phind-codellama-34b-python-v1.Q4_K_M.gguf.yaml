@@ -48,7 +48,7 @@ config_file: |
   # Default number of threads
   threads: 6
   # Define a backend (optional). By default it will try to guess the backend the first time the model is interacted with.
-  backend: llama #available: llama-stable llama, stablelm, gpt2, gptj rwkv
+  backend: llama # available: llama-stable llama, stablelm, gpt2, gptj rwkv
   # stopwords (if supported by the backend)
   stopwords:
   - "HUMAN:"
