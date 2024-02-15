@@ -73,11 +73,11 @@ config_file: |
   template:
     
     # template file ".tmpl" with the prompt template to use by default on the endpoint call. Note there is no extension in the files
-    completion: phind-codellama-34b-python-completion
+    completion: phind-codellama-34b-python-instruct-completion
     chat_template:  phind-codellama-34b-python-chat_template_str
     chat-instruct_command: phind-codellama-34b-python-chat-instruct_command
     instruction_template: phind-codellama-34b-python-instruction_template_str
-    edit: edit_template
+    edit: phind-codellama-34b-python-edit
 
     # function: function_template
 
