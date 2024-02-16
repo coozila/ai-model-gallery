@@ -1,0 +1,216 @@
+name: "thebloke__phind-codellama-34b-v2-gguf__phind-codellama-34b-v2.q4_0.gguf"
+
+description: |
+  This model is fine-tuned for Python and achieves 69.5% pass@1 on HumanEval.
+
+license: "Llama2"
+urls:
+- https://ai.meta.com/llama/
+- https://ai.meta.com/llama/license/
+- https://huggingface.co/TheBloke/Phind-CodeLlama-34B-Python-v1-GGUF
+
+config_file: |
+  ## Model name.
+  # The model name is used to identify the model in the API calls.
+  name: thebloke__phind-codellama-34b-v2-gguf__phind-codellama-34b-v2.q4_0.gguf
+
+  # Default model parameters.
+  # These options can also be specified in the API calls
+  parameters:
+    # Relative to the models path
+    model: phind-codellama-34b-v2.Q4_K_M.gguf
+    # temperature
+    temperature: 0.7
+    # all the OpenAI request options here..
+    top_k: 80
+    top_p: 0.7
+    max_tokens:
+    ignore_eos: true
+    n_keep: 10
+    seed: 0.0
+    mode:
+    step:
+    negative_prompt:
+    typical_p:
+    tfz:
+    frequency_penalty:
+    mirostat_eta:
+    mirostat_tau:
+    mirostat:
+    rope_freq_base:
+    rope_freq_scale:
+    negative_prompt_scale:
+
+  # Default context size
+  context_size: 16384
+  # Default number of threads
+  threads: 6
+  # Define a backend (optional). By default it will try to guess the backend the first time the model is interacted with.
+  backend: llama # available: llama-stable llama, stablelm, gpt2, gptj rwkv
+  # stopwords (if supported by the backend)
+  stopwords:
+  - "HUMAN:"
+  - "### Response:"
+  # string to trim space to
+  trimspace:
+  - string
+  # Strings to cut from the response
+  cutstrings:
+  - "string"
+
+  # Directory used to store additional assets
+  asset_dir: ""
+
+  # define chat roles
+  roles:
+    assistant: '### Response:'
+    system: '### System Instruction:'
+    user: '### Instruction:'
+
+  # define template
+  template:
+    
+    # template file ".tmpl" with the prompt template to use by default on the endpoint call. Note there is no extension in the files
+    completion: phind-codellama-34b-python-instruct-completion
+    chat_template:  phind-codellama-34b-python-chat_template_str
+    chat-instruct_command: phind-codellama-34b-python-chat-instruct_command
+    instruction_template: phind-codellama-34b-python-instruction_template_str
+    edit: phind-codellama-34b-python-edit
+
+    # function: function_template
+
+  function:
+    disable_no_action: true
+    no_action_function_name: "reply"
+    no_action_description_name: "Reply to the AI assistant"
+
+  system_prompt: |
+    You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
+    If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+  
+  rms_norm_eps:
+
+  # Set it to 8 for llama2 70b
+  ngqa: 1
+
+  ## LLAMA specific options
+  # Enable F16 if backend supports it
+  f16: true
+
+  # Enable debugging
+  debug: true
+
+  # Enable embeddings
+  embeddings: true
+
+  # Mirostat configuration (llama.cpp only)
+  mirostat_eta: 0.8
+  mirostat_tau: 0.9
+  mirostat: 1
+
+  # GPU Layers (only used when built with cublas)
+  gpu_layers: 12
+
+  # Enable memory lock
+  mmlock: false
+
+  # GPU setting to split the tensor in multiple parts and define a main GPU
+  # see llama.cpp for usage
+  tensor_split: ""
+  main_gpu: ""
+
+  # Define a prompt cache path (relative to the models)
+  prompt_cache_path: "prompt-cache"
+
+  # Cache all the prompts
+  prompt_cache_all: true
+
+  # Read only
+  prompt_cache_ro: false
+
+  # Enable mmap
+  mmap: true
+
+  # Enable low vram mode (GPU only)
+  low_vram: true
+
+  # Set NUMA mode (CPU only)
+  numa: true
+  
+  # Lora settings
+  #lora_adapter: "/path/to/lora/adapter"
+  #lora_base: "/path/to/lora/base"
+
+  # Disable mulmatq (CUDA)
+  no_mulmatq: true
+
+  # Diffusers/transformers
+  #cuda: true
+
+prompt_templates:
+- name: "phind-codellama-34b-python-chat_template_str"
+  content: |
+    {{- range $message := .Messages }}
+      {{- if eq $message.RoleName "system" }}
+        <<SYS>>{{ $message.Content }}<</SYS>>
+
+      {{- else if and (eq $message.RoleName "user") (eq $message.MessageIndex 0) }}
+        <<SYS>>{{ $message.SystemPrompt }}<</SYS>>
+
+      {{- else if eq $message.RoleName "user" }}
+        ### Instruction: {{ $message.Content }}
+
+      {{- else if eq $message.RoleName "assistant" }}
+        ### Response: {{ $message.Content }}
+
+      {{- end }}
+    {{- end }}
+- name: "phind-codellama-34b-python-chat-instruct_command"
+  content: |
+    Continue the chat dialogue below. Write a single reply for the character "assistant". Here is the prompt: 
+      {{prompt}}
+- name: "phind-codellama-34b-python-instruction_template_str"
+  content: |
+    {%- set ns = namespace(found=false) -%}
+    {%- for message in messages -%}
+        {%- if message['role'] == 'system' -%}
+            {%- set ns.found = true -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if not ns.found -%}
+        {{- '' + 'Below is an instruction that describes a task. Write a response that appropriately completes the request.' + '\n\n' -}}
+    {%- endif %}
+    {%- for message in messages %}
+        {%- if message['role'] == 'system' -%}
+            {{- '' + message['content'] + '\n\n' -}}
+        {%- else -%}
+            {%- if message['role'] == 'user' -%}
+                {{-'### Instruction:\n' + message['content'] + '\n\n'-}}
+            {%- else -%}
+                {{-'### Response:\n' + message['content'] + '\n\n' -}}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if add_generation_prompt -%}
+        {{-'### Response:\n'-}}
+    {%- endif -%}
+- name: "phind-codellama-34b-python-instruct-completion"
+  content: |
+    {{.Input}}
+- name: "phind-codellama-34b-python-edit"
+  content: |
+    {{.Input}}
+    Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+    ### Instruction:
+    {{.Instruction}}
+
+    ### Input:
+    {{.Input}}
+
+    ### Response:
+
+files:
+- filename: "phind-codellama-34b-v2.Q4_K_M.gguf"
+  sha256: "196765aa42bc5a507dffb7d60d5a9308001378bde99a0b34c9843c740b8e5741"
+  uri: "https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2.GGUF/resolve/main/phind-codellama-34b-v2.Q4_K_M.gguf"
