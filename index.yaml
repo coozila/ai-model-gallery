@@ -9,6 +9,13 @@
 - url: "github:go-skynet/model-gallery/bert-embeddings.yaml"
   name: "text-embedding-ada-002"
   license: other
+## phind-codellama-34b-python-v1
+- url: "github:go-skynet/model-gallery/phind-codellama-34b-python-v1.Q4_K_M.yaml"
+  name: "thebloke__phind-codellama-34b-python-v1-gguf__phind-codellama-34b-python-v1.q4_0.gguf"
+  license: Llama
+- url: "github:go-skynet/model-gallery/bert-embeddings.yaml"
+  name: "gpt-3-turbo-16k"
+  license: Llama
 ## Stable Diffusion
 - url: github:go-skynet/model-gallery/stablediffusion.yaml
   name: stablediffusion
