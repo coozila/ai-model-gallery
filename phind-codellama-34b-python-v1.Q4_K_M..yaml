@@ -213,6 +213,6 @@ prompt_templates:
     ### Response:
 
 files:
-- filename: "llama-2-7b-chat.Q4_K_M.gguf"
+- filename: "phind-codellama-34b-python-v1.Q4_K_M.gguf"
   sha256: "74d7387eb39541af895600f2a0143d6c0b6fea97ba4fc03cd07a7daa80315930"
-  uri: "https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf"
+  uri: "https://huggingface.co/TheBloke/Phind-CodeLlama-34B-Python-v1-GGUF/raw/main/phind-codellama-34b-python-v1.Q4_K_M.gguf"
