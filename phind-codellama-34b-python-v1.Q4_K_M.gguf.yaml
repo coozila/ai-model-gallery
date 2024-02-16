@@ -114,7 +114,7 @@ config_file: |
   gpu_layers: 12
 
   # Enable memory lock
-  mmlock: true
+  mmlock: false
 
   # GPU setting to split the tensor in multiple parts and define a main GPU
   # see llama.cpp for usage
