@@ -3,8 +3,6 @@ name: "thebloke__phind-codellama-34b-python-v1-gguf__phind-codellama-34b-python-
 description: |
   This model is fine-tuned for Python and achieves 69.5% pass@1 on HumanEval.
 
-base_model: "Phind/Phind-CodeLlama-34B-Python-v1"
-
 license: "Llama2"
 urls:
 - https://ai.meta.com/llama/
@@ -215,4 +213,4 @@ prompt_templates:
 files:
 - filename: "phind-codellama-34b-python-v1.Q4_K_M.gguf"
   sha256: "74d7387eb39541af895600f2a0143d6c0b6fea97ba4fc03cd07a7daa80315930"
-  uri: "https://huggingface.co/TheBloke/Phind-CodeLlama-34B-Python-v1-GGUF/raw/main/phind-codellama-34b-python-v1.Q4_K_M.gguf"
+  uri: "https://huggingface.co/TheBloke/Phind-CodeLlama-34B-Python-v1-GGUF/resolve/main/phind-codellama-34b-python-v1.Q4_K_M.gguf"
